@@ -6,8 +6,14 @@ from app.campaign.campaign_router import campaign_router
 from context.shared.domain.constants.error_constants import ErrorConstants
 from context.shared.domain.exceptions.base_exception import BaseException
 from context.shared.domain.responses.exception_response import ExceptionResponse
+from config import Settings
 
-app = FastAPI()
+settings = Settings()
+
+app = FastAPI(
+    title=settings.app_name,
+    version=settings.app_version,
+)
 
 
 @app.exception_handler(BaseException)
@@ -18,7 +24,7 @@ def exception_base_handler(request: Request, exc: BaseException):
 
 @app.exception_handler(RequestValidationError)
 def request_exception_handler(request: Request, exc: Exception):
-    response = ExceptionResponse(message=ErrorConstants.BAD_REQUEST_ERROR, detail= str(exc), status_code=422, path=str(request.url))
+    response = ExceptionResponse(message=ErrorConstants.BAD_REQUEST_ERROR, detail=str(exc), status_code=422, path=str(request.url))
     return JSONResponse(status_code=422, content=jsonable_encoder(response))
 
 
