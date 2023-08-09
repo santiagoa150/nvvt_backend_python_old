@@ -1,5 +1,5 @@
 from uuid import uuid4
-from context.shared.domain.string_value_object import StringValueObject
+from context.shared.domain.value_objects.string_value_object import StringValueObject
 
 
 class IdValueObject(StringValueObject):

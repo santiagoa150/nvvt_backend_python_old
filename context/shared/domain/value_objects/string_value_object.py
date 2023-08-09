@@ -1,6 +1,6 @@
 class StringValueObject:
     def __init__(self, value: str):
-        self.value = value
+        self.__value = value
 
     def to_string(self) -> str:
-        return self.value
+        return self.__value

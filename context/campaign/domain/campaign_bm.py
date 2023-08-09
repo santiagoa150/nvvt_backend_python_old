@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class CampaignDto(BaseModel):
+class CampaignBM(BaseModel):
     campaign_id: str
     status: str
     name: str
