@@ -8,6 +8,7 @@ from context.shared.domain.exceptions.base_exception import BaseException
 from context.shared.domain.responses.exception_response import ExceptionResponse
 from config import Settings
 
+
 settings = Settings()
 
 app = FastAPI(
