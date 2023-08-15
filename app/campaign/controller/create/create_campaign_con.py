@@ -8,10 +8,7 @@ from app.campaign.controller.create.create_campaign_con_res import CreateCampaig
 from context.campaign.application.create.create_campaign_app import CreateCampaignApp
 from context.campaign.application.create.create_campaign_app_provider import create_campaign_app_provider
 
-CreateCampaignController = APIRouter(
-    prefix=CampaignConstants.PREFIX,
-    tags=[CampaignConstants.TAG]
-)
+CreateCampaignController = APIRouter()
 
 logger = logging.getLogger('CreateCampaignController')
 

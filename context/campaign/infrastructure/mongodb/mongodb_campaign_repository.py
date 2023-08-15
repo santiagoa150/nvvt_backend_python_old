@@ -23,7 +23,7 @@ class MongoDBCampaignRepository(CampaignRepository):
         return mapped
 
     def find_by_status(self, status: CampaignStatus) -> Campaign | None:
-        self.__logger.info(f'INIT :: status: ${status.to_string()}')
+        self.__logger.info(f'INIT :: status: {status.to_string()}')
         mapped = None
         result = self.__campaign_collection.find_one({"status": status.to_string()})
         if result:
@@ -32,7 +32,7 @@ class MongoDBCampaignRepository(CampaignRepository):
         return mapped
 
     def find_by_id(self, campaign_id: CampaignId) -> Campaign | None:
-        self.__logger.info(f'INIT :: campaign_id: ${campaign_id.to_string()}')
+        self.__logger.info(f'INIT :: campaign_id: {campaign_id.to_string()}')
         mapped = None
         result = self.__campaign_collection.find_one({"campaign_id": campaign_id.to_string()})
         if result:

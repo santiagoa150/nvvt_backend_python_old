@@ -13,7 +13,7 @@ class SearchCampaignByStatusApp:
         self.__repository = repository
 
     def exec(self, status: CampaignStatus, raise_exception_if_not_found: bool = False) -> Campaign | None:
-        self.__logger.info(f'INIT :: status: {status}, raise_exception_if_not_found: ${raise_exception_if_not_found}')
+        self.__logger.info(f'INIT :: status: {status}, raise_exception_if_not_found: {raise_exception_if_not_found}')
         found = self.__repository.find_by_status(status)
         if not found and raise_exception_if_not_found:
             raise CampaignNotFoundException()

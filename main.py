@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -15,6 +15,9 @@ settings = Settings()
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
+    responses={
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {'model': ExceptionResponse},
+    }
 )
 
 logging.basicConfig(
@@ -33,14 +36,14 @@ def exception_base_handler(request: Request, exc: BaseException):
 def request_exception_handler(request: Request, exc: Exception):
     response = ExceptionResponse(message=ErrorConstants.BAD_REQUEST_ERROR, detail=str(exc), status_code=422,
                                  path=str(request.url))
-    return JSONResponse(status_code=422, content=jsonable_encoder(response))
+    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content=jsonable_encoder(response))
 
 
 @app.exception_handler(Exception)
 def request_exception_handler(request: Request, exc: Exception):
     response = ExceptionResponse(message=ErrorConstants.INTERNAL_SERVER_ERROR, detail=str(exc), status_code=500,
                                  path=str(request.url))
-    return JSONResponse(status_code=500, content=jsonable_encoder(response))
+    return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=jsonable_encoder(response))
 
 
 app.include_router(campaign_router)
