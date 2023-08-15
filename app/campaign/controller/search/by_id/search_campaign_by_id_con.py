@@ -5,10 +5,10 @@ from context.campaign.domain.campaign_bm import CampaignBM
 from context.campaign.domain.campaign_repository import CampaignRepository
 from context.campaign.infrastructure.mongodb.mongodb_campaign_repository import MongoDBCampaignRepository
 
-search_campaign_by_id_controller = APIRouter()
+SearchCampaignByIdController = APIRouter()
 
 
-@search_campaign_by_id_controller.get('/')
+@SearchCampaignByIdController.get('/')
 async def get(campaign_id: str) -> CampaignBM:
     print("HERE 1")
     campaign: Campaign = Campaign.from_primitives(

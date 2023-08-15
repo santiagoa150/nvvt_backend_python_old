@@ -3,4 +3,5 @@ from enum import Enum
 
 class CampaignConstants(str, Enum):
     PREFIX = '/campaign'
-    TAG = 'Campaigns'
+    TAG = 'Campaigns',
+    BASE_OPERATION = '/'

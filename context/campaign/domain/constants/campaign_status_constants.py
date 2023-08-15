@@ -2,4 +2,5 @@ from enum import Enum
 
 
 class CampaignStatusConstants(str, Enum):
-    ACTIVE = "ACTIVE"
+    ACTIVE = "ACTIVE",
+    FINISHED = "FINISHED"

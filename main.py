@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
@@ -8,12 +10,16 @@ from context.shared.domain.exceptions.base_exception import BaseException
 from context.shared.domain.responses.exception_response import ExceptionResponse
 from config import Settings
 
-
 settings = Settings()
 
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
+)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s (%(asctime)s): [%(name)s][%(funcName)s] %(message)s (Line: %(lineno)d [%(filename)s])"
 )
 
 
@@ -25,13 +31,15 @@ def exception_base_handler(request: Request, exc: BaseException):
 
 @app.exception_handler(RequestValidationError)
 def request_exception_handler(request: Request, exc: Exception):
-    response = ExceptionResponse(message=ErrorConstants.BAD_REQUEST_ERROR, detail=str(exc), status_code=422, path=str(request.url))
+    response = ExceptionResponse(message=ErrorConstants.BAD_REQUEST_ERROR, detail=str(exc), status_code=422,
+                                 path=str(request.url))
     return JSONResponse(status_code=422, content=jsonable_encoder(response))
 
 
 @app.exception_handler(Exception)
 def request_exception_handler(request: Request, exc: Exception):
-    response = ExceptionResponse(message=ErrorConstants.INTERNAL_SERVER_ERROR, detail=str(exc), status_code=500, path=str(request.url))
+    response = ExceptionResponse(message=ErrorConstants.INTERNAL_SERVER_ERROR, detail=str(exc), status_code=500,
+                                 path=str(request.url))
     return JSONResponse(status_code=500, content=jsonable_encoder(response))
 
 
